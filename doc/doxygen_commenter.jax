@@ -1,0 +1,48 @@
+*doxygen_commenter.txt* Doxygenコメント生成プラグイン
+
+Author:      hidetzu <hidetzu@gmail.com>
+Licence:     This file is placed in the public domain.
+Version:     0.0.1
+Note:
+==========================================================
+目次                                       *doxygen_commenter-contents*
+概要                                       |doxygen_commenter-introduxtion|
+インターフェース                           |doxygen_commenter-interface|
+  コマンド                                 |doxygen_commenter-commands|
+  関数                                     |doxygen_commenter-functions|
+  キーマッピング                           |doxygen_commenter-key-mappings|
+  カスタマイズ                             |doxygen_commenter-customizing|
+
+==========================================================
+概要                                       *doxygen_commenter-introduxtion*
+
+*doxygen_commenter*は、Doxygenコメントを生成するためのプラグインです。
+
+最新版:
+http://hidetzu.github.com/doxygen_commenter/
+
+==========================================================
+インターフェース                           *doxygen_commenter-interface*
+
+
+==========================================================
+コマンド                                   *doxygen_commenter-commands*
+
+
+:Doxfunc                                   *:Doxfunc*
+                                           Doxygen形式の関数ヘッダコメントを挿入します
+
+==========================================================
+関数                                       *doxygen_commenter-functions*
+
+
+doxygen_commenter#comment_func()           *doxygen_commenter#comment_func()*
+                                           |:Doxfunc|の関数版です。
+
+==========================================================
+キーマッピング                             *doxygen_commenter-key-mappings*
+
+
+==========================================================
+カスタマイズ                               *doxygen_commenter-customizing*
+
