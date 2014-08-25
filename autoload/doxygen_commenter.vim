@@ -53,17 +53,32 @@ function! s:parse_c(range)
   return l:result
 endfunction
 
+let g:doxygen_commenter#parse_functions = {
+      \ 'c': 's:parse_c',
+      \}
+
 function! doxygen_commenter#comment_func()
   let l:funcstart = line(".")
   let l:funcend   = line(".")
+  let l:bufend    = line("$")
 
-  while getline(l:funcend) !~# "{"
+  while l:bufend >= l:funcend
+    let l:line = getline(l:funcend)
+    if l:line =~# "{"
+      break
+    endif
     let l:funcend = l:funcend + 1
   endwhile
 
-  if &ft == 'c'
-    let l:result = s:parse_c(s:readbuf(l:funcstart, l:funcend))
-    call append(l:funcstart - 1 , s:create_funcheader_comment(l:result['params']))
+  if l:funcend > l:bufend
+    echoerr "not found function end"
+  else
+    if has_key(g:doxygen_commenter#parse_functions, &filetype)
+      let l:result = function(g:doxygen_commenter#parse_functions[&filetype])(s:readbuf(l:funcstart,l:funcend))
+      call append(l:funcstart - 1 , s:create_funcheader_comment(l:result['params']))
+    else
+      echoerr "filetype=" .&filetype . "is not supported"
+    endif
   endif
 endfunction
 
