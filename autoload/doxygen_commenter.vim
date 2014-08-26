@@ -33,20 +33,10 @@ function! s:parse_c(range)
   let l:result= {}
   let l:params=[]
 
-  for l:word in l:range
-    for l:item in split(l:word, '[\,(,)]\zs')
-      if l:item =~# '('
-        continue
-      endif
-
-      for l:item2 in split(l:item, '\s\zs')
-        if l:item2 =~# ','
-          call add(l:params, substitute(l:item2, ',', '', 'g'))
-        elseif l:item2 =~# ')'
-          call add(l:params, substitute(l:item2, ')', '', 'g'))
-        endif
-      endfor
-    endfor
+  for l:item in split(substitute(matchlist(join(l:range), '[^(]*(\([^)]*\))')[1], '\s*,\s*', ',', "g"), ',\zs')
+    let l:param = split(substitute(l:item,'\s*$','','g'), '\s\zs')[-1]
+    let l:param = substitute(l:param, '[\,,\*]', '', "g")
+    call add(l:params, l:param)
   endfor
 
   let l:result['params']=l:params
@@ -64,7 +54,7 @@ function! doxygen_commenter#comment_func()
 
   while l:bufend >= l:funcend
     let l:line = getline(l:funcend)
-    if l:line =~# "{"
+    if l:line =~# ")"
       break
     endif
     let l:funcend = l:funcend + 1
